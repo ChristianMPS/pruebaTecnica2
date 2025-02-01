@@ -1,3 +1,4 @@
+import CharacterList from "@/components/list";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,6 +10,12 @@ export default function Home() {
         <h1 className="text-3xl font-bold text-white mb-4">
           Rick and Morty API !
         </h1>
+        <div className="w-full max-w-4xl mx-auto flex-grow p-8">
+          <h1 className="text-3xl font-bold mb-6 mt-4">
+            Lista de personajes:{" "}
+          </h1>
+          <CharacterList />
+        </div>
         <Link href="/characterDetails">
           <button className="bg-blue-500 text-white px-4 py-2 rounded">
             Ver detalles del personaje
