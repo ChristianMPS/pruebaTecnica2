@@ -22,12 +22,6 @@ export default function Home() {
           <CharacterList />
         </div>
       </div>
-
-      {/* <Link href="/characterDetails">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded">
-          Ver detalles del personaje
-        </button>
-      </Link> */}
     </div>
   );
 }
