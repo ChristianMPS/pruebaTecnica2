@@ -1,6 +1,6 @@
+import Grafic from "@/components/grafic";
 import CharacterList from "@/components/list";
 import Image from "next/image";
-//import Link from "next/link";
 
 export default function Home() {
   return (
@@ -17,9 +17,14 @@ export default function Home() {
             Rick and Morty characters:
           </h1>
         </header>
+        
         <div className="w-full max-w-4xl mx-auto flex-grow ">
           <h1 className="text-3xl font-bold mb-6 mt-4">List of characters: </h1>
           <CharacterList />
+        </div>
+        <div className="w-full max-w-4xl mx-auto flex-grow ">
+          <h1 className="text-3xl font-bold mb-6 mt-4">Grafics: </h1>
+          <Grafic />
         </div>
       </div>
     </div>
