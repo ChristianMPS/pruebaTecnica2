@@ -67,7 +67,6 @@ const CharacterDetails = () => {
       <div className="w-full max-w-[90%] md:max-w-[40rem] p-1 h-full">
         <Card className="h-full">
           <CardContent className="flex flex-col items-center justify-center p-6 h-full text-white bg-gray-700 rounded-lg cursor-pointer">
-            {/* Avatar responsive */}
             <Avatar className="w-[200px] h-[200px] sm:w-[250px] sm:h-[250px]">
               <AvatarImage src={character.image} />
               <AvatarFallback className="text-white font-bold">
@@ -97,7 +96,6 @@ const CharacterDetails = () => {
           </CardContent>
         </Card>
 
-        {/* Contenedor para centrar el botón */}
         <div className="flex justify-center mt-8">
           <Button
             onClick={() => router.back()}
