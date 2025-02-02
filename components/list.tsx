@@ -1,15 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import Button from "./button";
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from "embla-carousel-autoplay";
+import React from "react";
 
 interface Character {
   id: number;
@@ -23,6 +33,10 @@ interface Character {
 const CharacterList = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true })
+  );
 
   const fetchCharacters = async () => {
     try {
@@ -45,43 +59,53 @@ const CharacterList = () => {
   if (loading) return <p>Cargando personajes...</p>;
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow className="text-center">
-          <TableHead>ID</TableHead>
-          <TableHead>Nombre</TableHead>
-          <TableHead>Estado</TableHead>
-          <TableHead>Especie</TableHead>
-          <TableHead>Genero</TableHead>
-          <TableHead>Imagen</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody className="max-h-8 overflow-y-auto">
-        {characters.length > 0 ? (
-          characters.map((characters) => (
-            <TableRow key={characters.id}>
-              <TableCell>{characters.id}</TableCell>
-              <TableCell>{characters.name}</TableCell>
-              <TableCell>{characters.status}</TableCell>
-              <TableCell>{characters.species}</TableCell>
-              <TableCell>{characters.gender}</TableCell>
-              <TableCell>{characters.image}</TableCell>
-              <TableCell>
-                <Button disabled={loading} colors="edit" className="w-32">
-                  Detalle del personaje
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))
-        ) : (
-          <TableRow>
-            <TableCell colSpan={5} className="text-center">
-              No hay personajes disponibles
-            </TableCell>
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <Carousel
+      plugins={[plugin.current]}
+      className="w-full max-w-[40rem] max-h-[40rem]"
+      onMouseEnter={plugin.current.stop}
+      onMouseLeave={plugin.current.reset}
+    >
+      <CarouselContent className="-mt-1 h-[400px]">
+        {characters.map((character) => (
+          <CarouselItem
+            key={character.id}
+            className="pt-1 md:basis-1/2 h-[400px]"
+          >
+            <div className="p-1 h-full">
+              <Card className="h-full">
+                <CardContent className="flex flex-col items-center justify-center p-6 h-full text-white bg-gray-700 rounded-lg">
+                  {/* Aquí el avatar (opcional) */}
+                  <Avatar className="w-[150px] h-[150px]">
+                    <AvatarImage src={character.image} />
+                    <AvatarFallback className="text-white font-bold">
+                      {character.name[0]}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  {/* Nombre en negrita y blanco */}
+                  <h3 className="text-xl font-bold mt-4">
+                    Name: {character.name}
+                  </h3>
+
+                  {/* Otros textos en blanco y negrita */}
+                  <p className="text-sm font-bold">
+                    Species: {character.species}
+                  </p>
+                  <p className="text-sm font-bold">
+                    Status: {character.status}
+                  </p>
+                  <p className="text-sm font-bold">
+                    Gender: {character.gender}
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
   );
 };
 
